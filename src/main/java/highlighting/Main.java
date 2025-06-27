@@ -67,7 +67,7 @@ public class LibgdxSetup extends Game {
             new Token(Pattern.compile("'.'"), 0, Color.pink),
 
             // KeyWords: package, import, class, public, private, final, return, null, new
-            new Token(Pattern.compile("package|import|class|public|private|final|return|null|new"), 0, Color.CYAN),
+            new Token(Pattern.compile("(package|import|class|public|private|final|return|null|new)(?=\\b)"), 0, Color.CYAN),
 
             // Annotation
             // Fangen mit "@" an, beispielsweise "@Override"
