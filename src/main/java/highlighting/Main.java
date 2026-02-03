@@ -1,6 +1,8 @@
 package highlighting;
 
+import java.awt.*;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /** Configure the lexer and start the demo. */
 public class Main {
@@ -54,27 +56,35 @@ public class LibgdxSetup extends Game {
      * @return list of tokens for the syntax parts to be highlighted
      */
     private static List<Token> setupTokens() {
+
         return List.of(
-                // Strings
-                // Zeichenketten, die in '"' eingeschlossen sind
+            // Strings
+            // Zeichenketten, die in '"' eingeschlossen sind
+            new Token(Pattern.compile("\".+?\""), 0, Color.YELLOW),
 
-                // Einzelne Zeichen
-                // Zeichen, die in "'" eingeschlossen sind
+            // Einzelne Zeichen
+            // Zeichen, die in "'" eingeschlossen sind
+            new Token(Pattern.compile("'.'"), 0, Color.pink),
 
-                // KeyWords: package, import, class, public, private, final, return, null, new
+            // KeyWords: package, import, class, public, private, final, return, null, new
+            new Token(Pattern.compile("package|import|class|public|private|final|return|null|new"), 0, Color.CYAN),
 
-                // Annotation
-                // Fangen mit "@" an, beispielsweise "@Override"
+            // Annotation
+            // Fangen mit "@" an, beispielsweise "@Override"
+            new Token(Pattern.compile("\\@.+?(?=\\s)"), 0, Color.orange),
 
-                // Einzeiliger Kommentar
-                // Fängt mit "//" an und geht bis zum Ende der Zeile
+            // Einzeiliger Kommentar
+            // Fängt mit "//" an und geht bis zum Ende der Zeile
+            new Token(Pattern.compile("//.*"), 0, Color.green),
 
-                // Mehrzeiliger Kommentar
-                // Fängt mit "/*" and und bis zum nächsten "*/", kann potentiell mehrere Zeilen
-                // umfassen
+            // Mehrzeiliger Kommentar
+            // Fängt mit "/*" and und bis zum nächsten "*/", kann potentiell mehrere Zeilen
+            // umfassen
+            new Token(Pattern.compile("/\\*(.|\n)*?\\*/"), 0, Color.green),
 
-                // Java-Doc-Kommentar
-                // Wie ein mehrzeiliger Kommentar, beginnt aber mit "/**"
-                );
+            // Java-Doc-Kommentar
+            // Wie ein mehrzeiliger Kommentar, beginnt aber mit "/**"
+            new Token(Pattern.compile("/\\*\\*(.|\n)*?\\*/"), 0, Color.LIGHT_GRAY)
+        );
     }
 }
